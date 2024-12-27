@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useActionState, useState } from "react";
 import { SettingsAction } from "@/app/actions";
 import { aboutSettingsSchema } from "@/app/lib/zodSchemas";
 import {
@@ -16,9 +16,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
-import { useFormState } from "react-dom";
 import { SubmitButton } from "../SubmitButton";
-import { UploadDropzone } from "@/app/lib/uploadthing";
+// import { UploadDropzone } from "@/app/lib/uploadthing";
 import Image from "next/image";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -27,23 +26,22 @@ import { toast } from "sonner";
 interface iAppProps {
   fullName: string;
   email: string;
-
   profileImage: string;
 }
 
 export function SettingsForm({ fullName, email, profileImage }: iAppProps) {
-  const [lastResult, action] = useFormState(SettingsAction, undefined);
+
+  const [lastResult, action] = useActionState(SettingsAction, undefined);
+
   const [currentProfileImage, setCurrentProfileImage] = useState(profileImage);
 
   const [form, fields] = useForm({
     // Sync the result of last submission
     lastResult,
-
     // Reuse the validation logic on the client
     onValidate({ formData }) {
       return parseWithZod(formData, { schema: aboutSettingsSchema });
     },
-
     // Validate the form on blur event triggered
     shouldValidate: "onBlur",
     shouldRevalidate: "onInput",
@@ -59,21 +57,31 @@ export function SettingsForm({ fullName, email, profileImage }: iAppProps) {
         <CardTitle>Settings</CardTitle>
         <CardDescription>Manage your account settings.</CardDescription>
       </CardHeader>
-      <form noValidate id={form.id} onSubmit={form.onSubmit} action={action}>
+
+      <form 
+        noValidate 
+        id={form.id} 
+        onSubmit={form.onSubmit} 
+        action={action}
+      >
         <CardContent className="flex flex-col gap-y-4">
           <div className="flex flex-col gap-y-2">
             <Label>Full Name</Label>
             <Input
               name={fields.fullName.name}
               key={fields.fullName.key}
-              placeholder="Jan Marshall"
+              placeholder="Manny Alverez"
               defaultValue={fullName}
             />
             <p className="text-red-500 text-sm">{fields.fullName.errors}</p>
           </div>
           <div className="flex flex-col gap-y-2">
             <Label>Email</Label>
-            <Input disabled placeholder="Jan Marshall" defaultValue={email} />
+            <Input 
+              disabled 
+              placeholder="mannyalvarez@gmail.co," 
+              defaultValue={email} 
+            />
           </div>
 
           <div className="grid gap-y-5">
@@ -104,19 +112,20 @@ export function SettingsForm({ fullName, email, profileImage }: iAppProps) {
                 </Button>
               </div>
             ) : (
-              <UploadDropzone
-                endpoint="imageUploader"
-                appearance={{
-                  container: "border-muted",
-                }}
-                onClientUploadComplete={(res) => {
-                  setCurrentProfileImage(res[0].url);
-                  toast.success("Profile image uploaded");
-                }}
-                onUploadError={(error) => {
-                  toast.error(error.message);
-                }}
-              />
+              <>Remove todo</>
+              // <UploadDropzone
+              //   endpoint="imageUploader"
+              //   appearance={{
+              //     container: "border-muted",
+              //   }}
+              //   onClientUploadComplete={(res) => {
+              //     setCurrentProfileImage(res[0].url);
+              //     toast.success("Profile image uploaded");
+              //   }}
+              //   onUploadError={(error) => {
+              //     toast.error(error.message);
+              //   }}
+              // />
             )}
             <p className="text-red-500 text-sm">{fields.profileImage.errors}</p>
           </div>

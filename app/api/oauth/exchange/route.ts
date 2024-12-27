@@ -17,16 +17,14 @@ export async function GET(req: NextRequest) {
     });
   }
 
-
-  try {
-    
+  try {    
     const codeExchangePayload = {
       clientSecret: nylasConfig.apiKey,
       clientId: nylasConfig.clientId as string,
       redirectUri: nylasConfig.callbackUri,
       code,
     };
-    
+
     const response = await nylas.auth.exchangeCodeForToken(codeExchangePayload);
     const { grantId, email } = response;
 
@@ -39,10 +37,8 @@ export async function GET(req: NextRequest) {
         grantEmail: email,
       },
     });
-    console.log({ grantId });
   } catch (error) {
     console.error("Error exchanging code for token:", error);
   }
-
   redirect("/dashboard");
 }
