@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Ban, FileIcon, PlusCircle } from "lucide-react";
+import { Ban, PlusCircle } from "lucide-react";
 import Link from "next/link";
 
 interface iAppProps {
@@ -27,7 +27,8 @@ export function EmptyState({
 
       <Button asChild>
         <Link href={href}>
-          <PlusCircle className="mr-2 size-4" /> {buttonText}
+          <PlusCircle className="mr-2 size-4" />
+          {buttonText}
         </Link>
       </Button>
     </div>
