@@ -17,7 +17,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { SubmitButton } from "../SubmitButton";
-// import { UploadDropzone } from "@/app/lib/uploadthing";
+import { UploadDropzone } from "@/app/lib/uploadthing";
 import Image from "next/image";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -112,20 +112,19 @@ export function SettingsForm({ fullName, email, profileImage }: iAppProps) {
                 </Button>
               </div>
             ) : (
-              <>Remove todo</>
-              // <UploadDropzone
-              //   endpoint="imageUploader"
-              //   appearance={{
-              //     container: "border-muted",
-              //   }}
-              //   onClientUploadComplete={(res) => {
-              //     setCurrentProfileImage(res[0].url);
-              //     toast.success("Profile image uploaded");
-              //   }}
-              //   onUploadError={(error) => {
-              //     toast.error(error.message);
-              //   }}
-              // />
+              <UploadDropzone
+                endpoint="imageUploader"
+                appearance={{
+                  container: "border-muted",
+                }}
+                onClientUploadComplete={(res) => {
+                  setCurrentProfileImage(res[0].url);
+                  toast.success("Profile image uploaded");
+                }}
+                onUploadError={(error) => {
+                  toast.error(error.message);
+                }}
+              />
             )}
             <p className="text-red-500 text-sm">{fields.profileImage.errors}</p>
           </div>

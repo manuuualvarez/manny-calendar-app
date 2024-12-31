@@ -100,7 +100,7 @@ export async function SettingsAction(prevState: any, formData: FormData) {
     return submission.reply();
   }
 
-  const user = await prisma.user.update({
+  await prisma.user.update({
     where: {
       id: session.user?.id as string,
     },
@@ -272,10 +272,10 @@ export async function updateAvailabilityAction(formData: FormData) {
     );
 
     revalidatePath("/dashboard/availability");
-    return { status: "success", message: "Availability updated successfully" };
+    // return { status: "success", message: "Availability updated successfully" };
   } catch (error) {
     console.error("Error updating availability:", error);
-    return { status: "error", message: "Failed to update availability" };
+    // return { status: "error", message: "Failed to update availability" };
   }
 }
 
