@@ -29,7 +29,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ButtonGroup } from "@/components/ui/ButtonGroup";
-import { useState } from "react";
+import { useActionState, useState } from "react";
 
 interface iAppProps {
   id: string;
@@ -50,7 +50,7 @@ export function EditEventTypeForm({
   callProvider,
   id,
 }: iAppProps) {
-  const [lastResult, action] = useFormState(EditEventTypeAction, undefined);
+  const [lastResult, action] = useActionState(EditEventTypeAction, undefined);
   const [form, fields] = useForm({
     // Sync the result of last submission
     lastResult,

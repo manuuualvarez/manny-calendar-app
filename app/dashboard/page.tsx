@@ -17,7 +17,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-// import { MenuActiveSwitcher } from "../components/dashboard/EventTypeSwitcher";
+import { MenuActiveSwitcher } from "../components/dashboard/EventTypeSwitcher";
 import { CopyLinkMenuItem } from "../components/dashboard/CopyLinkMenuItem";
 
 async function getData(id: string) {
@@ -64,7 +64,7 @@ const DashbaordPage = async () => {
           </p>
         </div>
         <Button asChild>
-          <Link href="/dashboard/new">Create New Event</Link>
+          <Link href="/dashboard/new">Create New Event Type</Link>
         </Button>
       </div>
       {data.EventType.length === 0 ? (
@@ -78,7 +78,7 @@ const DashbaordPage = async () => {
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {data.EventType.map((item) => (
             <div
-              className="  overflow-hidden shadow rounded-lg border relative"
+              className="overflow-hidden shadow rounded-lg border relative"
               key={item.id}
             >
               <div className="absolute top-2 right-2">
@@ -111,8 +111,8 @@ const DashbaordPage = async () => {
                     <DropdownMenuSeparator />
                     <DropdownMenuItem asChild>
                       <Link href={`/dashboard/event/${item.id}/delete`}>
-                        <Trash className="mr-2 h-4 w-4" />
-                        <span>Delete</span>
+                        <Trash className="mr-2 h-4 w-4 text-red-600" />
+                        <span className="text-red-600">Delete</span>
                       </Link>
                     </DropdownMenuItem>
                   </DropdownMenuContent>
@@ -131,7 +131,7 @@ const DashbaordPage = async () => {
                           {item.duration} Minutes Meeting
                         </dt>
                         <dd>
-                          <div className="text-lg font-medium ">
+                          <div className="text-lg font-medium mt-3">
                             {item.title}
                           </div>
                         </dd>
@@ -141,10 +141,10 @@ const DashbaordPage = async () => {
                 </div>
               </Link>
               <div className="bg-muted dark:bg-gray-900 px-5 py-3 flex justify-between items-center">
-                {/* <MenuActiveSwitcher
+                <MenuActiveSwitcher
                   initialChecked={item.active}
                   eventTypeId={item.id}
-                /> */}
+                />
 
                 <Link href={`/dashboard/event/${item.id}`}>
                   <Button className="">Edit Event</Button>
