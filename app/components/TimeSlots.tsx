@@ -1,11 +1,4 @@
-import {
-  addMinutes,
-  format,
-  fromUnixTime,
-  isAfter,
-  isBefore,
-  parse,
-} from "date-fns";
+import { addMinutes, format, fromUnixTime, isAfter, isBefore, parse } from "date-fns";
 import prisma from "../lib/db";
 import { Prisma } from "@prisma/client";
 import { nylas } from "../lib/nylas";
@@ -19,13 +12,16 @@ interface iappProps {
   meetingDuration: number;
 }
 
+// Check the availability of the user
 async function getAvailability(selectedDate: Date, userName: string) {
   const currentDay = format(selectedDate, "EEEE");
 
   const startOfDay = new Date(selectedDate);
   startOfDay.setHours(0, 0, 0, 0);
+
   const endOfDay = new Date(selectedDate);
   endOfDay.setHours(23, 59, 59, 999);
+  
   const data = await prisma.availability.findFirst({
     where: {
       day: currentDay as Prisma.EnumDayFilter,
@@ -59,16 +55,14 @@ async function getAvailability(selectedDate: Date, userName: string) {
 }
 
 function calculateAvailableTimeSlots(
-  dbAvailability: {
-    fromTime: string | undefined;
-    tillTime: string | undefined;
-  },
+  dbAvailability: { fromTime: string | undefined; tillTime: string | undefined },
   nylasData: NylasResponse<GetFreeBusyResponse[]>,
   date: string,
   duration: number
 ) {
-  const now = new Date(); // Get the current time
 
+  const now = new Date(); // Get the current time
+  
   // Convert DB availability to Date objects
   const availableFrom = parse(
     `${date} ${dbAvailability.fromTime}`,
@@ -81,7 +75,9 @@ function calculateAvailableTimeSlots(
     new Date()
   );
 
+
   // Extract busy slots from Nylas data
+  // @ts-ignore
   const busySlots = nylasData.data[0].timeSlots.map((slot: any) => ({
     start: fromUnixTime(slot.startTime),
     end: fromUnixTime(slot.endTime),
@@ -113,11 +109,7 @@ function calculateAvailableTimeSlots(
   return freeSlots.map((slot) => format(slot, "HH:mm"));
 }
 
-export async function TimeSlots({
-  selectedDate,
-  userName,
-  meetingDuration,
-}: iappProps) {
+export async function TimeSlots({ selectedDate, userName, meetingDuration }: iappProps) {
   const { data, nylasCalendarData } = await getAvailability(
     selectedDate,
     userName
@@ -137,7 +129,7 @@ export async function TimeSlots({
   return (
     <div>
       <p className="text-base font-semibold">
-        {format(selectedDate, "EEE")}.{" "}
+        {format(selectedDate, "EEE")} {" "}
         <span className="text-sm text-muted-foreground">
           {format(selectedDate, "MMM. d")}
         </span>

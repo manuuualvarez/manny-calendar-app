@@ -17,8 +17,9 @@ export function CalendarHeader({
   prevButtonProps: AriaButtonProps<"button">;
   nextButtonProps: AriaButtonProps<"button">;
 }) {
+  
   const monthDateFormatter = useDateFormatter({
-    month: "short",
+    month: "long",
     year: "numeric",
     timeZone: state.timeZone,
   });
@@ -50,3 +51,4 @@ export function CalendarHeader({
     </div>
   );
 }
+

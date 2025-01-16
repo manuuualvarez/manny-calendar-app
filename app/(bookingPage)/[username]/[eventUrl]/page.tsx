@@ -1,3 +1,4 @@
+
 import { createMeetingAction } from "@/app/actions";
 import { RenderCalendar } from "@/app/components/bookingForm/RenderCalendar";
 import { SubmitButton } from "@/app/components/SubmitButton";
@@ -51,9 +52,6 @@ async function getData(username: string, eventUrl: string) {
   eventType.user.Availability.sort(
     (a, b) => dayOrder.indexOf(a.day) - dayOrder.indexOf(b.day)
   );
-
-  
-
   return eventType;
 }
 
@@ -72,6 +70,7 @@ const BookingPage = async ({ params,searchParams }: {
     day: "numeric",
     month: "long",
   }).format(selectedDate);
+
 
   const showForm = !!searchParams.date && !!searchParams.time;
 
@@ -203,11 +202,11 @@ const BookingPage = async ({ params,searchParams }: {
               className="hidden md:block h-full w-[1px]"
             />
 
-            {/* <TimeSlots
+            <TimeSlots
               selectedDate={selectedDate}
               userName={params.username}
               meetingDuration={eventType.duration}
-            /> */}
+            />
           </CardContent>
         </Card>
       )}
@@ -216,3 +215,4 @@ const BookingPage = async ({ params,searchParams }: {
 };
 
 export default BookingPage;
+

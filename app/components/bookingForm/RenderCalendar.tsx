@@ -17,11 +17,11 @@ interface iAppProps {
 
 export function RenderCalendar({ daysofWeek }: iAppProps) {
   const router = useRouter();
-  const searchParams = useSearchParams();
 
-  console.log(daysofWeek);
+  // Date param in the url
+  const searchParams = useSearchParams();
   const [date, setDate] = useState<CalendarDate>(() => {
-    const dateParam = searchParams.get("date");
+    const dateParam = searchParams.get("date") 
     return dateParam ? parseDate(dateParam) : today(getLocalTimeZone());
   });
 
@@ -32,13 +32,11 @@ export function RenderCalendar({ daysofWeek }: iAppProps) {
     }
   }, [searchParams]);
 
+  // Uopdate the date in the url as a parameter
   const handleChangeDate = (date: DateValue) => {
-    console.log(date);
     setDate(date as CalendarDate);
     const url = new URL(window.location.href);
-
     url.searchParams.set("date", date.toString());
-
     router.push(url.toString());
   };
 

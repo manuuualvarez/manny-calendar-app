@@ -2,28 +2,15 @@
 
 import { CreateEventTypeAction } from "@/app/actions";
 import { SubmitButton } from "@/app/components/SubmitButton";
+import { auth } from "@/app/lib/auth";
+import prisma from "@/app/lib/db";
 import { eventTypeSchema } from "@/app/lib/zodSchemas";
 import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/ButtonGroup";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
@@ -33,7 +20,8 @@ import React, { useState, useActionState } from "react";
 
 type Platform = "Zoom Meeting" | "Google Meet" | "Microsoft Teams";
 
-const CreateNewEvent = () => {
+
+const CreateNewEvent = async () => {
 
   const [lastResult, action] = useActionState(CreateEventTypeAction, undefined);
   
