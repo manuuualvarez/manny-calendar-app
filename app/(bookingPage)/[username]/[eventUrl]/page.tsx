@@ -12,6 +12,7 @@ import { BookMarked, CalendarX2, Clock, VideoIcon } from "lucide-react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import React from "react";
+import { convertToStartLocaleDate } from "@/lib/utils";
 
 async function getData(username: string, eventUrl: string) {
   const eventType = await prisma.eventType.findFirst({
@@ -69,8 +70,7 @@ const BookingPage = async ({ params,searchParams }: {
     weekday: "long",
     day: "numeric",
     month: "long",
-  }).format(selectedDate);
-
+  }).format(convertToStartLocaleDate(selectedDate));
 
   const showForm = !!searchParams.date && !!searchParams.time;
 
@@ -203,7 +203,7 @@ const BookingPage = async ({ params,searchParams }: {
             />
 
             <TimeSlots
-              selectedDate={selectedDate}
+              selectedDate={convertToStartLocaleDate(selectedDate)}
               userName={params.username}
               meetingDuration={eventType.duration}
             />

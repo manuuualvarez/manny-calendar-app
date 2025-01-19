@@ -11,6 +11,7 @@ import {
   parseDate,
 } from "@internationalized/date";
 
+
 interface iAppProps {
   daysofWeek: { day: string; isActive: boolean }[];
 }
@@ -21,7 +22,7 @@ export function RenderCalendar({ daysofWeek }: iAppProps) {
   // Date param in the url
   const searchParams = useSearchParams();
   const [date, setDate] = useState<CalendarDate>(() => {
-    const dateParam = searchParams.get("date") 
+    const dateParam = searchParams.get("date")
     return dateParam ? parseDate(dateParam) : today(getLocalTimeZone());
   });
 
@@ -34,10 +35,11 @@ export function RenderCalendar({ daysofWeek }: iAppProps) {
 
   // Uopdate the date in the url as a parameter
   const handleChangeDate = (date: DateValue) => {
-    setDate(date as CalendarDate);
-    const url = new URL(window.location.href);
-    url.searchParams.set("date", date.toString());
-    router.push(url.toString());
+
+      setDate(date as CalendarDate);
+      const url = new URL(window.location.href);
+      url.searchParams.set("date", date.toString());
+      router.push(url.toString());
   };
 
   const isDateUnavailable = (date: DateValue) => {
