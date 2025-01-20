@@ -103,7 +103,7 @@ export const BookingPage = async (
               <div className="mt-5 grid gap-y-3">
                 <p className="flex items-center">
                   <CalendarX2 className="size-4 mr-2 text-primary" />
-                  <span className="text-sm font-medium text-muted-foreground">
+                  <span className="text-sm font-medium text-green-600">
                     {formattedDate}
                   </span>
                 </p>
@@ -149,7 +149,12 @@ export const BookingPage = async (
                 <Input name="email" placeholder="johndoe@gmail.com" />
               </div>
 
-              <SubmitButton text="Book Meeting" />
+              <SubmitButton text="Pay and Book Meeting" />
+
+              <p className="text-sm font-medium text-muted-foreground mt-1">
+                (*) The price is 50 USD and will be deducted from the total price of opening your LLC.
+              </p>
+
             </form>
           </CardContent>
         </Card>

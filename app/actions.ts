@@ -276,6 +276,7 @@ export async function updateAvailabilityAction(formData: FormData) {
 }
 
 export async function createMeetingAction(formData: FormData) {
+  // Getting the user data
   const getUserData = await prisma.user.findUnique({
     where: {
       username: formData.get("username") as string,
@@ -289,7 +290,7 @@ export async function createMeetingAction(formData: FormData) {
   if (!getUserData) {
     throw new Error("User not found");
   }
-
+  // Getting the event type data to save
   const eventTypeData = await prisma.eventType.findUnique({
     where: {
       id: formData.get("eventTypeId") as string,
@@ -339,30 +340,30 @@ export async function createMeetingAction(formData: FormData) {
   return redirect(`/success`);
 }
 
-// export async function cancelMeetingAction(formData: FormData) {
-//   const session = await requireUser();
+export async function cancelMeetingAction(formData: FormData) {
+  const session = await requireUser();
 
-//   const userData = await prisma.user.findUnique({
-//     where: {
-//       id: session.user?.id as string,
-//     },
-//     select: {
-//       grantEmail: true,
-//       grantId: true,
-//     },
-//   });
+  const userData = await prisma.user.findUnique({
+    where: {
+      id: session.user?.id as string,
+    },
+    select: {
+      grantEmail: true,
+      grantId: true,
+    },
+  });
 
-//   if (!userData) {
-//     throw new Error("User not found");
-//   }
+  if (!userData) {
+    throw new Error("User not found");
+  }
 
-//   const data = await nylas.events.destroy({
-//     eventId: formData.get("eventId") as string,
-//     identifier: userData?.grantId as string,
-//     queryParams: {
-//       calendarId: userData?.grantEmail as string,
-//     },
-//   });
+  const data = await nylas.events.destroy({
+    eventId: formData.get("eventId") as string,
+    identifier: userData?.grantId as string,
+    queryParams: {
+      calendarId: userData?.grantEmail as string,
+    },
+  });
 
-//   revalidatePath("/dashboard/meetings");
-// }
+  revalidatePath("/dashboard/meetings");
+}
