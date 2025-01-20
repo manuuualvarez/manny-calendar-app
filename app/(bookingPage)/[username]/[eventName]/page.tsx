@@ -1,4 +1,4 @@
-
+export const dynamic = "force-dynamic";
 import { createMeetingAction } from "@/app/actions";
 import { RenderCalendar } from "@/app/components/bookingForm/RenderCalendar";
 import { SubmitButton } from "@/app/components/SubmitButton";
@@ -8,16 +8,16 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import prisma from "@/app/lib/db";
-import { BookMarked, CalendarX2, Clock, VideoIcon } from "lucide-react";
+import { CalendarX2, Clock, VideoIcon } from "lucide-react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import React from "react";
 import { convertToStartLocaleDate } from "@/lib/utils";
 
-async function getData(username: string, eventUrl: string) {
+const getData = async (username: string, eventName: string) => {
   const eventType = await prisma.eventType.findFirst({
     where: {
-      url: eventUrl,
+      url: eventName,
       user: {
         username: username,
       },
@@ -56,15 +56,19 @@ async function getData(username: string, eventUrl: string) {
   return eventType;
 }
 
-const BookingPage = async ({ params,searchParams }: { 
-   params:{ username: string, eventUrl: string },
-   searchParams: { date?: string; time?: string }
-}) => {
+export const BookingPage = async (
+  props: { 
+     params: Promise<{ username: string, eventName: string }>,
+     searchParams: Promise<{ date?: string; time?: string }>
+  }
+) => {
+  const searchParams = await props.searchParams;
+  const params = await props.params;
   const selectedDate = searchParams.date
     ? new Date(searchParams.date)
     : new Date();
 
-  const eventType = await getData(params.username, params.eventUrl);
+  const eventType = await getData(params.username, params.eventName);
 
   const formattedDate = new Intl.DateTimeFormat("en-US", {
     weekday: "long",
@@ -72,7 +76,8 @@ const BookingPage = async ({ params,searchParams }: {
     month: "long",
   }).format(convertToStartLocaleDate(selectedDate));
 
-  const showForm = !!searchParams.date && !!searchParams.time;
+  const showForm = !!searchParams?.date && !!searchParams?.time && params.username;
+
 
   return (
     <div className="min-h-screen w-screen flex items-center justify-center">
@@ -215,4 +220,3 @@ const BookingPage = async ({ params,searchParams }: {
 };
 
 export default BookingPage;
-

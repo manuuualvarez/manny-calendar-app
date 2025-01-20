@@ -7,9 +7,7 @@ import { CalendarHeader } from "./CalendarHeader";
 import { CalendarGrid } from "./CalendarGrid";
 
 export function Calendar(
-  props: CalendarProps<DateValue> & {
-    isDateUnavailable?: (date: DateValue) => boolean;
-  }
+  props: CalendarProps<DateValue> & {isDateUnavailable?: (date: DateValue) => boolean;}
 ) {
   const { locale } = useLocale();
   const state = useCalendarState({
@@ -19,10 +17,7 @@ export function Calendar(
     createCalendar,
   });
 
-  const { calendarProps, prevButtonProps, nextButtonProps } = useCalendar(
-    props,
-    state
-  );
+  const { calendarProps, prevButtonProps, nextButtonProps } = useCalendar(props,state);
   return (
     <div {...calendarProps} className="inline-block ">
       <CalendarHeader
