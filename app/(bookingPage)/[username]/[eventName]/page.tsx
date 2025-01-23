@@ -13,6 +13,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import React from "react";
 import { convertToStartLocaleDate } from "@/lib/utils";
+import { addDays } from "date-fns";
 
 const getData = async (username: string, eventName: string) => {
   const eventType = await prisma.eventType.findFirst({
@@ -66,7 +67,7 @@ export const BookingPage = async (
   const params = await props.params;
   const selectedDate = searchParams.date
     ? new Date(searchParams.date)
-    : new Date();
+    : addDays(new Date(), 1);
 
   const eventType = await getData(params.username, params.eventName);
 

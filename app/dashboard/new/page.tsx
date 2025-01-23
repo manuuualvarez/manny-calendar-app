@@ -2,8 +2,7 @@
 
 import { CreateEventTypeAction } from "@/app/actions";
 import { SubmitButton } from "@/app/components/SubmitButton";
-import { auth } from "@/app/lib/auth";
-import prisma from "@/app/lib/db";
+import { requireUser } from "@/app/lib/hooks";
 import { eventTypeSchema } from "@/app/lib/zodSchemas";
 import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/ButtonGroup";
@@ -15,7 +14,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import Link from "next/link";
-import React, { useState, useActionState } from "react";
+import React, { useState, useActionState, useEffect } from "react";
+import prisma from '@/app/lib/db';
 
 
 type Platform = "Zoom Meeting" | "Google Meet" | "Microsoft Teams";
@@ -69,7 +69,7 @@ const CreateNewEvent = async () => {
               <Label>URL Slug</Label>
               <div className="flex rounded-md">
                 <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-muted bg-muted text-muted-foreground text-sm">
-                  MyCalendarApp.com/
+                  LLCCreator.com/
                 </span>
                 <Input
                   type="text"

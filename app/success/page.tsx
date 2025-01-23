@@ -22,29 +22,6 @@ export default function SuccessPage() {
             all the details.
           </p>
 
-          {/*     <Separator className="my-5" />
-
-          <div className="grid grid-cols-3 w-full  self-start gap-y-4">
-            <div className="col-span-1">
-              <h1 className="font-medium">What</h1>
-            </div>
-            <div className="col-span-2">
-              <p className="text-muted-foreground">Design Workshop</p>
-            </div>
-
-            <div className="col-span-1">
-              <h1 className="font-medium">When</h1>
-            </div>
-            <div className="col-span-2">
-              <p className="text-muted-foreground">10:00 - 12:00</p>
-            </div>
-            <div className="col-span-1">
-              <h1 className="font-medium">Where</h1>
-            </div>
-            <div className="col-span-2">
-              <p className="text-muted-foreground">Online</p>
-            </div>
-          </div> */}
         </CardContent>
         <CardFooter>
           <Button className="w-full" asChild>

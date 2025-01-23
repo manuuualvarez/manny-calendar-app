@@ -18,7 +18,7 @@ export function AuthModal() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>Try for Free</Button>
+        <Button>Get started</Button>
       </DialogTrigger>
       <DialogContent 
         className="sm:max-w-[360px]"
@@ -28,7 +28,7 @@ export function AuthModal() {
           <DialogHeader className="flex-row justify-center items-center gap-x-2">
               <Image src={Logo} className="size-10" alt="Logo" />
               <h4 className="text-3xl font-semibold">
-                My <span className="text-primary">CalendarApp</span>
+              LLC <span className="text-primary">Creator</span>
               </h4>
           </DialogHeader>
         </DialogTitle>
