@@ -28,7 +28,7 @@ export function AuthModal() {
           <DialogHeader className="flex-row justify-center items-center gap-x-2">
               <Image src={Logo} className="size-10" alt="Logo" />
               <h4 className="text-3xl font-semibold">
-              LLC <span className="text-primary">Creator</span>
+              Manny <span className="text-primary">Calendar</span>
               </h4>
           </DialogHeader>
         </DialogTitle>

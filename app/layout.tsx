@@ -18,8 +18,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Let's build your LLC",
-  description: "We are here to help you build your LLC",
+  title: "Let's meet",
+  description: "We are here to help you handle meetings",
 };
 
 export default function RootLayout({

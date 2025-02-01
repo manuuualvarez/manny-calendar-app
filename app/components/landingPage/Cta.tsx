@@ -5,10 +5,10 @@ export function CTA() {
     <div className="mx-auto max-w-7xl sm:px-6 lg:px-8 my-20">
       <div className="relative isolate overflow-hidden  px-6 py-20 text-center sm:rounded-3xl sm:border  sm:px-16 sm:shadow-sm">
         <h2 className="mx-auto max-w-2xl text-3xl font-bold tracking-tight  sm:text-4xl">
-          Start using LLC Creator Now!
+          Start using Manny Calendar Now!
         </h2>
         <h3 className="mx-auto mt-6 max-w-xl text-lg leading-8 text-muted-foreground">
-          LLC creator makes it easy for create new companies and manage all of for you.
+          Manny Calendar makes it easy for create new meetings and manage all of for you.
         </h3>
         <div className="mt-8 flex items-center justify-center gap-x-6">
           <Button>Get Started Today</Button>

@@ -64,7 +64,7 @@ export default async function Dashboard({ children }: { children: ReactNode }) {
               <Link href="/" className="flex items-center gap-2 font-semibold">
                 <Image src={Logo} alt="Logo" className="size-6" />
                 <p className="text-xl font-bold">
-                  LLC <span className="text-primary">Creator</span>
+                  Manny <span className="text-primary">Calendar</span>
                 </p>
               </Link>
             </div>

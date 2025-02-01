@@ -14,7 +14,7 @@ export function Navbar() {
           <Image src={Logo} className="size-10" alt="Logo" />
 
           <h4 className="text-3xl font-semibold">
-            LLC <span className="text-primary">Creator</span>
+            Manny <span className="text-primary">Calendar</span>
           </h4>
         </Link>
         <div className="md:hidden">

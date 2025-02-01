@@ -9,11 +9,11 @@ export function Hero() {
       <div className="relative items-center w-full py-12 lg:py-20">
         <div className="text-center">
           <span className="text-sm text-primary font-medium tracking-tight bg-primary/10 px-4 py-2 rounded-full">
-            Create a LLC never been easier
+            Handle meetings never been easier
           </span>
 
           <h1 className="mt-8 text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-medium leading-none">
-            LLC Creator{" "}
+            Manny Calendar{" "}
             <span className="block text-primary">super easy!</span>
           </h1>
 
