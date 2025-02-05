@@ -1,4 +1,4 @@
-import { SettingsForm } from "@/app/components/dashboard/SettingsForm";
+import { SettingsForm } from "../../components/dashboard/SettingsForm";
 
 import prisma from "@/app/lib/db";
 import { requireUser } from "@/app/lib/hooks";
