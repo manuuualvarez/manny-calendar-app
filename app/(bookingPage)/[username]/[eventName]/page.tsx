@@ -1,5 +1,3 @@
-export const dynamic = "force-dynamic";
-import { createMeetingAction } from "@/app/actions";
 import { RenderCalendar } from "@/app/components/bookingForm/RenderCalendar";
 import { SubmitButton } from "@/app/components/SubmitButton";
 import { TimeSlots } from "@/app/components/TimeSlots";
@@ -8,14 +6,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import prisma from "@/app/lib/db";
-import { CalendarX2, Clock, VideoIcon } from "lucide-react";
+import { BookMarked, CalendarX2, Clock } from "lucide-react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import React from "react";
-import { convertToStartLocaleDate } from "@/lib/utils";
-import { addDays } from "date-fns";
+import { createMeetingAction } from "@/app/actions";
 
-const getData = async (username: string, eventName: string) => {
+async function getData(username: string, eventName: string) {
   const eventType = await prisma.eventType.findFirst({
     where: {
       url: eventName,
@@ -30,7 +27,6 @@ const getData = async (username: string, eventName: string) => {
       title: true,
       duration: true,
       videoCallSoftware: true,
-
       user: {
         select: {
           image: true,
@@ -50,35 +46,24 @@ const getData = async (username: string, eventName: string) => {
     return notFound();
   }
 
-  const dayOrder = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-  eventType.user.Availability.sort(
-    (a, b) => dayOrder.indexOf(a.day) - dayOrder.indexOf(b.day)
-  );
   return eventType;
 }
 
-export const BookingPage = async (
-  props: { 
-     params: Promise<{ username: string, eventName: string }>,
-     searchParams: Promise<{ date?: string; time?: string }>
-  }
-) => {
-  const searchParams = await props.searchParams;
-  const params = await props.params;
-  const selectedDate = searchParams.date
-    ? new Date(searchParams.date)
-    : addDays(new Date(), 1);
+const BookingPage = async ({ params, searchParams }: { params: { username: string; eventName: string }; searchParams: { date?: string; time?: string } }) => {
+  const { username, eventName } = params;
+  const { date, time } = searchParams;
 
-  const eventType = await getData(params.username, params.eventName);
+  const eventType = await getData(username, eventName);
 
+  const selectedDate = date ? new Date(date) : new Date();
   const formattedDate = new Intl.DateTimeFormat("en-US", {
     weekday: "long",
     day: "numeric",
     month: "long",
-  }).format(convertToStartLocaleDate(selectedDate));
+  }).format(selectedDate);
 
-  const showForm = !!searchParams?.date && !!searchParams?.time && params.username;
-
+  
+  const showForm = !!date && !!time;
 
   return (
     <div className="min-h-screen w-screen flex items-center justify-center">
@@ -104,7 +89,7 @@ export const BookingPage = async (
               <div className="mt-5 grid gap-y-3">
                 <p className="flex items-center">
                   <CalendarX2 className="size-4 mr-2 text-primary" />
-                  <span className="text-sm font-medium text-green-600">
+                  <span className="text-sm font-medium text-muted-foreground">
                     {formattedDate}
                   </span>
                 </p>
@@ -115,7 +100,7 @@ export const BookingPage = async (
                   </span>
                 </p>
                 <p className="flex items-center">
-                  <VideoIcon className="size-4 mr-2 text-primary" />
+                  <BookMarked className="size-4 mr-2 text-primary" />
                   <span className="text-sm font-medium text-muted-foreground">
                     {eventType.videoCallSoftware}
                   </span>
@@ -132,9 +117,9 @@ export const BookingPage = async (
               action={createMeetingAction}
             >
               <input type="hidden" name="eventTypeId" value={eventType.id} />
-              <input type="hidden" name="username" value={params.username} />
-              <input type="hidden" name="fromTime" value={searchParams.time} />
-              <input type="hidden" name="eventDate" value={searchParams.date} />
+              <input type="hidden" name="username" value={username} />
+              <input type="hidden" name="fromTime" value={time} />
+              <input type="hidden" name="eventDate" value={date} />
               <input
                 type="hidden"
                 name="meetingLength"
@@ -150,12 +135,7 @@ export const BookingPage = async (
                 <Input name="email" placeholder="johndoe@gmail.com" />
               </div>
 
-              <SubmitButton text="Pay and Book Meeting" />
-
-              <p className="text-sm font-medium text-muted-foreground mt-1">
-                (*) The price is 50 USD and will be deducted from the total price of opening your LLC.
-              </p>
-
+              <SubmitButton text="Book Meeting" />
             </form>
           </CardContent>
         </Card>
@@ -191,7 +171,7 @@ export const BookingPage = async (
                   </span>
                 </p>
                 <p className="flex items-center">
-                  <VideoIcon className="size-4 mr-2 text-primary" />
+                  <BookMarked className="size-4 mr-2 text-primary" />
                   <span className="text-sm font-medium text-muted-foreground">
                     Google Meet
                   </span>
@@ -214,8 +194,8 @@ export const BookingPage = async (
             />
 
             <TimeSlots
-              selectedDate={convertToStartLocaleDate(selectedDate)}
-              userName={params.username}
+              selectedDate={selectedDate}
+              userName={username}
               meetingDuration={eventType.duration}
             />
           </CardContent>
