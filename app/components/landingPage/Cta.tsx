@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 
 export function CTA() {
   return (
-    <div className="mx-auto max-w-7xl sm:px-6 lg:px-8 my-20">
+    <section className="mx-auto max-w-7xl sm:px-6 lg:px-8 my-20">
       <div className="relative isolate overflow-hidden  px-6 py-20 text-center sm:rounded-3xl sm:border  sm:px-16 sm:shadow-sm">
         <h2 className="mx-auto max-w-2xl text-3xl font-bold tracking-tight  sm:text-4xl">
           Start using Manny Calendar Now!
@@ -34,6 +34,6 @@ export function CTA() {
           </defs>
         </svg>
       </div>
-    </div>
+    </section>
   );
 }

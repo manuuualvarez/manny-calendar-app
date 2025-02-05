@@ -25,17 +25,17 @@ export function Testimonial() {
                 />
               </svg>
               <span className="relative z-10 ">
-                Wow LL Creator is the best platform I have ever used. Definitely
+                Wow Manny Calendar is the best platform I have ever used. Definitely
                 Recommend it to you guys, try it out!
               </span>
             </p>
           </div>
-          <footer className="mt-6">
+          <div className="mt-6">
             <div className="font-semibold ">Manuel Alvarez</div>
             <div className="text-sm text-muted-foreground">
               Programmer | iOS Developer
             </div>
-          </footer>
+          </div>
         </blockquote>
         {/* End Blockquote */}
       </div>

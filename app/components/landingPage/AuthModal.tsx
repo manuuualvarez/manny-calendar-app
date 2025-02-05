@@ -15,6 +15,7 @@ import { GitHubAuthButton, GoogleAuthButton } from "../SubmitButton";
 import { DialogTitle } from "@radix-ui/react-dialog";
 
 export function AuthModal() {
+
   return (
     <Dialog>
       <DialogTrigger asChild>

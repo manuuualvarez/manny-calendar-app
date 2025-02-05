@@ -75,9 +75,9 @@ export function EditEventTypeForm({
     <div className="h-full w-full flex-1 flex flex-col items-center justify-center">
       <Card>
         <CardHeader>
-          <CardTitle>Add new appointment type</CardTitle>
+          <CardTitle>Edit your appointment type</CardTitle>
           <CardDescription>
-            Create a new appointment type that allows people to book times.
+            Edit your appointment type that allows people to book times.
           </CardDescription>
         </CardHeader>
         <form noValidate id={form.id} onSubmit={form.onSubmit} action={action}>

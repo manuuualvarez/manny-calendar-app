@@ -5,7 +5,6 @@ import prisma from "./lib/db";
 import { requireUser } from "./lib/hooks";
 import {
   aboutSettingsSchema,
-  eventTypeSchema,
   EventTypeServerSchema,
   onboardingSchema,
 } from "./lib/zodSchemas";
@@ -158,7 +157,11 @@ export async function EditEventTypeAction(prevState: any, formData: FormData) {
           where: {
             userId: session.user?.id,
             url: formData.get("url") as string,
+            NOT: {
+              id: formData.get("id") as string
+            },
           },
+          
         });
         return !data;
       },
@@ -171,7 +174,7 @@ export async function EditEventTypeAction(prevState: any, formData: FormData) {
     return submission.reply();
   }
 
-  const data = await prisma.eventType.update({
+  await prisma.eventType.update({
     where: {
       id: formData.get("id") as string,
       userId: session.user?.id as string,
@@ -191,7 +194,7 @@ export async function EditEventTypeAction(prevState: any, formData: FormData) {
 export async function DeleteEventTypeAction(formData: FormData) {
   const session = await requireUser();
 
-  const data = await prisma.eventType.delete({
+  await prisma.eventType.delete({
     where: {
       id: formData.get("id") as string,
       userId: session.user?.id as string,
@@ -201,20 +204,11 @@ export async function DeleteEventTypeAction(formData: FormData) {
   return redirect("/dashboard");
 }
 
-export async function updateEventTypeStatusAction(
-  prevState: any,
-  {
-    eventTypeId,
-    isChecked,
-  }: {
-    eventTypeId: string;
-    isChecked: boolean;
-  }
-) {
+export async function updateEventTypeStatusAction(prevState: any, { eventTypeId, isChecked }: { eventTypeId: string; isChecked: boolean }) {
   try {
     const session = await requireUser();
 
-    const data = await prisma.eventType.update({
+    await prisma.eventType.update({
       where: {
         id: eventTypeId,
         userId: session.user?.id as string,
@@ -229,7 +223,7 @@ export async function updateEventTypeStatusAction(
       status: "success",
       message: "EventType Status updated successfully",
     };
-  } catch (error) {
+  } catch  {
     return {
       status: "error",
       message: "Something went wrong",
@@ -238,7 +232,7 @@ export async function updateEventTypeStatusAction(
 }
 
 export async function updateAvailabilityAction(formData: FormData) {
-  const session = await requireUser();
+  await requireUser();
 
   const rawData = Object.fromEntries(formData.entries());
   const availabilityData = Object.keys(rawData)
@@ -357,7 +351,7 @@ export async function cancelMeetingAction(formData: FormData) {
     throw new Error("User not found");
   }
 
-  const data = await nylas.events.destroy({
+  await nylas.events.destroy({
     eventId: formData.get("eventId") as string,
     identifier: userData?.grantId as string,
     queryParams: {

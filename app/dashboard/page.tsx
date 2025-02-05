@@ -25,7 +25,6 @@ async function getData(id: string) {
     where: {
       id: id,
     },
-
     select: {
       EventType: {
         select: {
