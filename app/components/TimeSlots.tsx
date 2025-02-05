@@ -75,7 +75,7 @@ function calculateAvailableTimeSlots(
     new Date()
   );
   // Extract busy slots from Nylas data
-  //@ts-expect-error
+  //@ts-expect-error: Nylas API response type is not well-defined
   const busySlots = nylasData.data[0].timeSlots.map((slot: any) => ({
     start: fromUnixTime(slot.startTime),
     end: fromUnixTime(slot.endTime),

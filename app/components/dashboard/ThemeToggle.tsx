@@ -11,7 +11,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useEffect } from "react";
+
 
 export function ThemeToggle() {
   const { setTheme } = useTheme();

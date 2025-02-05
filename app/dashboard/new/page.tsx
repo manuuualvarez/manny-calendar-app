@@ -13,13 +13,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import Link from "next/link";
-import React, { useState, useActionState, useEffect } from "react";
+import React, { useState, useActionState } from "react";
 
 
 type Platform = "Zoom Meeting" | "Google Meet" | "Microsoft Teams";
 
 
-const CreateNewEvent = async () => {
+const CreateNewEvent = () => {
 
   const [lastResult, action] = useActionState(CreateEventTypeAction, undefined);
   

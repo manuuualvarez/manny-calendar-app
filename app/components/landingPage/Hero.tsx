@@ -18,7 +18,7 @@ export function Hero() {
           </h1>
 
           <p className="max-w-xl mx-auto mt-4   lg:text-lg text-muted-foreground ">
-            Scheduling a meeting with our team and let's build your dream LLC and grow your business.
+            Scheduling a meeting with our team and lets build your dream LLC and grow your business.
           </p>
           <div className=" mt-5 mb-12">
             <AuthModal />
