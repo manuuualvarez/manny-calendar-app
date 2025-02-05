@@ -21,11 +21,14 @@ async function getData(eventTypeId: string) {
   if (!data) {
     return notFound();
   }
-
   return data;
 }
-const EditEventTypePage = async ({ params }: { params: { eventTypeId: string } }) => {
-  const data = await getData(params.eventTypeId);
+
+type Params = Promise<{ eventTypeId: string; }>
+
+const EditEventTypePage = async ({ params }: { params: Params }) => {
+  const { eventTypeId } = await params;
+  const data = await getData(eventTypeId);
 
   return (
     <EditEventTypeForm

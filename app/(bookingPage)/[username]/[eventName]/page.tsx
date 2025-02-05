@@ -49,9 +49,12 @@ async function getData(username: string, eventName: string) {
   return eventType;
 }
 
-const BookingPage = async ({ params, searchParams }: { params: { username: string; eventName: string }; searchParams: { date?: string; time?: string } }) => {
-  const { username, eventName } = params;
-  const { date, time } = searchParams;
+type Params = Promise<{ username: string; eventName: string } >
+type SearchParams = Promise<{ date?: string; time?: string } >
+
+const BookingPage = async ({ params, searchParams }: { params: Params, searchParams:  SearchParams}) => {
+  const { username, eventName } = await params;
+  const { date, time } = await searchParams;
 
   const eventType = await getData(username, eventName);
 
@@ -62,7 +65,6 @@ const BookingPage = async ({ params, searchParams }: { params: { username: strin
     month: "long",
   }).format(selectedDate);
 
-  
   const showForm = !!date && !!time;
 
   return (
